@@ -65,8 +65,8 @@ private:
 
 	std::string str_pop_front(std::vector<std::string>& untyped_data)
 	{
-		std::string mem = untyped_data.front();
-		untyped_data.erase(untyped_data.begin());
+		std::string mem = untyped_data.back();
+		untyped_data.pop_back();
 		return mem;
 	}
 
@@ -88,7 +88,7 @@ public:
 	{
 		std::vector<std::string> res;
 		std::string buffer;
-		
+
 		std::getline(_file, buffer);
 
 		if (_file.eof())
@@ -116,7 +116,7 @@ public:
 		if (untyped_data.size() != sizeof...(Args))
 			throw std::runtime_error("Invalid string!");
 
-		std::tuple<Args...> test(string_converter<Args>(str_pop_front(untyped_data))...);
+		std::tuple<Args...> test(string_converter<Args>(str_pop_front(untyped_data))...); //std::tuple<Args...> test(string_converter<float>(str_pop_front(untyped_data)), string_converter<int>(str_pop_front(untyped_data)), string_converter<std::string>(str_pop_front(untyped_data)), string_converter<float>(str_pop_front(untyped_data)))
 		return test; //какие-то траблы(возможно снова баг windows)
 	}
 
@@ -131,13 +131,13 @@ public:
 		};
 		CSVParseIterator(const CSVParseIterator&) = default;
 		CSVParseIterator& operator=(const CSVParseIterator&) = default;
-		bool operator==(CSVParseIterator& a) 
-		{ 
-			return object == a.object; 
+		bool operator==(CSVParseIterator& a)
+		{
+			return object == a.object;
 		}
-		bool operator!=(CSVParseIterator& a) 
-		{ 
-			return object != a.object; 
+		bool operator!=(CSVParseIterator& a)
+		{
+			return object != a.object;
 		}
 		CSVParseIterator& operator++()
 		{
@@ -170,15 +170,12 @@ int main()
 	std::tuple<int, int, float, char> test1(1, 0, 4.5, 'L');
 	std::cout << test1;
 
-	std::tuple<> test2;
-	std::cout << test2;
-
 	std::cout << std::endl;
 
 	//задание 2
 	std::ifstream file("test.csv");
-	CSVParser<float, int, std::string, float> parser(file, 0 /*skip first lines count*/); //конструктор
-	for (std::tuple<float, int, std::string, float> rs : parser) {
+	CSVParser<std::string, std::string, float, long long, int, char, int> parser(file, 0 /*skip first lines count*/); //конструктор
+	for (std::tuple<std::string, std::string, float, long long, int, char, int> rs : parser) {
 		std::cout << rs << std::endl;
 	}
 
