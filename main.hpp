@@ -5,5 +5,6 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
+#include <string>
 
 #endif //MAIN_43
