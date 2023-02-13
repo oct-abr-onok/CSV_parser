@@ -42,24 +42,31 @@ auto& operator<<(std::basic_ostream<Ch, Tr>& os, std::tuple<Args...> const& t)
 }
 
 //задание 2
+template <class... Args>
 class CSVParser
 {
+private:
+	int _skip_lines;
+	int _cur_line = 0;
+	const std::ifstream& _file;
+	std::tuple<Args...> res;
+ 
 public:
-	CSVParser(std::ifstream filename, int skip_lines) {
-		
+	CSVParser(std::ifstream& file, int skip_lines) : _file(file)
+	{
+		//пропуск строк
+		_skip_lines = skip_lines;
+		std::string buffer;
+		while (_cur_line < _skip_lines)
+		{
+			std::getline(_file, buffer);
+			_cur_line++;
+		}
+
+
 	}
 
-private:
-
 };
-
-CSVParser::CSVParser()
-{
-}
-
-CSVParser::~CSVParser()
-{
-}
 
 int main()
 {
