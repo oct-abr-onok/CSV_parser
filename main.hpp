@@ -4,7 +4,8 @@
 #include <tuple>
 #include <fstream>
 #include <iostream>
-#include <iomanip>
 #include <string>
+#include <vector>
+#include <sstream>
 
 #endif //MAIN_43
